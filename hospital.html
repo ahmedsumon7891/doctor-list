@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital List</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .head{
+      max-width: 1200px;
+      margin: 10px auto;
+      padding:15px;
+      height: 120px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      background-color: #2ecc71;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      color: #2c3e50;
+    }
+    .hospital-card {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hospital-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    }
+    .hospital-card img {
+      border-radius: 10px;
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      margin-right: 25px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .hospital-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+    .hospital-info h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: #34495e;
+    }
+    .hospital-info p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+    .map-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .map-btn:hover {
+      background-color: #2980b9;
+    }
+    /* Loading Spinner */
+    .loading {
+      text-align: center;
+      font-size: 18px;
+      color: #3498db;
+    }
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #3498db;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-left: 10px;
+    }
+    a{
+        text-decoration: none;
+    }
+    /* Back Button */
+    .back-btn {
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: none;
+      display: inline-block;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #logo {
+      padding-top: 10px;
+      width: 60px;  /* Adjust size if needed */
+      height: 60px;
+    }
+    .back-btn:hover {
+      transform: translateY(-5px);
+      transform: translateX(-5px);
+      background-color: #2C2C2C;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Back Button -->
+  <button class="back-btn" onclick="window.history.back()">< Back</button>
+  <div class="head">
+  <img id="logo" src="https://png.pngtree.com/png-vector/20230209/ourmid/pngtree-hospital-logo-png-image_6591586.png" alt="Hospital">
+  <h1>List Of Hospitals</h1>     
+  </div>
+
+  <!-- Loading spinner initially displayed -->
+  <div class="loading" id="loading">
+    Loading Hospitals List
+    <div class="spinner"></div>
+  </div>
+  <div id="hospital-list" style="display: none;"></div>
+</div>
+
+<script>
+  // Fetch data from API
+    fetch('https://script.google.com/macros/s/AKfycbwvvF9aJ1Pqx6TA-qpFTvIQPUh1rXsTmGMZ-jXEGj5sQMU2jdkC8RblpcLshdDX1YE/exec')
+    .then(response => response.json())
+    .then(data => {
+    const hospitalList = data.data;
+    const hospitalListContainer = document.getElementById('hospital-list');
+    const loadingElement = document.getElementById('loading');
+    
+    // Hide loading and show hospital list
+    loadingElement.style.display = 'none';
+    hospitalListContainer.style.display = 'block';
+    
+    // Loop through each hospital and display their information
+    hospitalList.forEach(hospital => {
+      const hospitalCard = document.createElement('div');
+      hospitalCard.classList.add('hospital-card');
+      
+      // Create hospital image
+      const hospitalImage = document.createElement('img');
+      hospitalImage.src = hospital.photo.startsWith('data:image') ? hospital.photo : hospital.photo;
+      hospitalImage.alt = hospital.name;
+      
+      // Create hospital info section
+      const hospitalInfo = document.createElement('div');
+      hospitalInfo.classList.add('hospital-info');
+      
+      const hospitalName = document.createElement('h3');
+      hospitalName.textContent = hospital.name;
+      
+      const hospitalLocation = document.createElement('p');
+      hospitalLocation.textContent = `Location: ${hospital.location}`;
+      
+      // Create phone and email with clickable links
+      const hospitalPhone = document.createElement('p');
+      const phoneLink = document.createElement('a');
+      phoneLink.href = `tel:${hospital.phone}`;
+      phoneLink.style.textDecoration = 'none';
+      phoneLink.style.color = '#3498db';
+      phoneLink.textContent = hospital.phone;
+      hospitalPhone.textContent = 'Phone: ';
+      hospitalPhone.appendChild(phoneLink);
+
+      const hospitalEmail = document.createElement('p');
+      const emailLink = document.createElement('a');
+      emailLink.href = `mailto:${hospital.email}`;
+      emailLink.style.textDecoration = 'none';
+      emailLink.style.color = '#3498db';
+      emailLink.textContent = hospital.email;
+      hospitalEmail.textContent = 'Email: ';
+      hospitalEmail.appendChild(emailLink);
+
+      const mapBtn = document.createElement('a');
+      mapBtn.classList.add('map-btn');
+      mapBtn.href = hospital.map;
+      mapBtn.target = '_blank';
+      mapBtn.textContent = '🔎 Find in Map';
+      
+      // Append elements
+      hospitalInfo.appendChild(hospitalName);
+      hospitalInfo.appendChild(hospitalLocation);
+      hospitalInfo.appendChild(hospitalPhone);
+      hospitalInfo.appendChild(hospitalEmail);
+      hospitalInfo.appendChild(mapBtn);
+      
+      hospitalCard.appendChild(hospitalImage);
+      hospitalCard.appendChild(hospitalInfo);
+      
+      hospitalListContainer.appendChild(hospitalCard);
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching hospital data:', error);
+  });
+  
+</script>
+</body>
+                                                             </html>
