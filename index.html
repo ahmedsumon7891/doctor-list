@@ -135,11 +135,11 @@
 
     <!-- Grid Section -->
     <div class="grid" id="menu">
-        <div class="grid-item" onclick="showDetails('ডাক্তার')">
+        <div class="grid-item" onclick="window.location.href='https://ahmedsumon7891.github.io/online-service/doclist'">
             <img src="https://png.pngtree.com/png-vector/20240122/ourmid/pngtree-doctor-symbol-color-png-image_11455718.png" alt="Doctor">
             <span>ডাক্তার</span>
         </div>
-        <div class="grid-item" onclick="showDetails('Hospital')">
+        <div class="grid-item" onclick="window.location.href='https://ahmedsumon7891.github.io/online-service/hospital'">
             <img src="https://png.pngtree.com/png-vector/20230209/ourmid/pngtree-hospital-logo-png-image_6591586.png" alt="Hospital">
             <span>হাসপাতাল</span>
         </div>
@@ -218,147 +218,8 @@
         <!-- Add more grid items as needed -->
     </div>
 
-    <!-- Details Section -->
-    <div id="details">
-        <h2 id="details-title"></h2>
-        <p id="details-content"></p>
-        <button class="close-btn" onclick="closeDetails()">Close</button>
-    </div>
-
     <script>
-        // Data for Details Section
-        const info = {
-            "ডাক্তার":`<div style="text-align: center; font-family: Arial, sans-serif;">
-    <p>
-        যেকোনো ডাক্তারের সাথে যোগাযোগ করার জন্য আপনি সরাসরি সদর হাসপাতালে যেতে পারেন। 
-        তবে পরামর্শের জন্য আপনি চাইলে নিচের নম্বর গুলোতে কল দিতে পারেন!
-    </p>
-    <br>
-    <div class="doctor-profile" style="border-radius: 50%; width: 100px; height: 100px; overflow: hidden; margin: 0 auto;">
-        <img src="data:image/jpeg;base64,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" alt="Doctor Profile" style="width: 100%; height: auto;">
-    </div>
-    <h2 style="margin: 10px 0 5px;">ডাঃ মাইনুদ্দিন আহমেদ</h2>
-    <p style="margin: 5px 0;"><strong>বিশেষজ্ঞ:</strong> মেডিসিন ও সার্জারি</p>
-    <p style="margin: 5px 0;">বিভাগীয় প্রধান (কুড়িগ্রাম 250 শয্যা জেনারেল হাসপাতাল)</p>
-    <button onclick="window.location.href='https://drmainuddinahmed.com/appointment/'" 
-        style="margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        Book an Appointment
-    </button>
-    </div>
-    <br>
-    <div class="doctor-profile" style="border-radius: 50%; width: 100px; height: 100px; overflow: hidden; margin: 0 auto;">
-        <img src="https://www.hmmgo.com/wp-content/uploads/2024/02/Dr.-Md.-Selim-Morshed-Suvo.webp" alt="Doctor Profile" style="width: 100%; height: auto;">
-    </div>
-    <h2 style="margin: 10px 0 5px;">Dr. Md. Selim Morshed Suvo</h2>
-    <p style="margin: 5px 0;"><b>বিশেষজ্ঞ:</b> ইউরোলজি সার্জারি</p>
-    <p style="margin: 5px 0;">Consultant, at Popular Diagnostic Centre Limited, Kurigram</p>
-    <button onclick="window.location.href='tel:+8809666787820'" 
-        style="margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        Book an Appointment
-    </button>
-</div>`,
-            "Hospital": `
-            
-            <div style="text-align: center; font-family: Arial, sans-serif;">
-            <p>Contact the nearest hospital for emergencies></p>
-            <br>
-            <div style="box-shadow: 0 4px 8px rgba(0, 0, 9, 0.5); border-radius: 5px; padding: 5px;">
-            <div class="clinic-profile" style="border-radius: 5%; width: 120px; height: 100px; overflow: hidden; margin: 0 auto;">
-                
-                <img src="https://kurigram.info/wp-content/uploads/classified-listing/2024/02/Morium-Eye-Hospital--400x320.png" alt="Hospital Photo" style="width: 100%; height: 100%;">
-            </div>
-            <h3 style="margin: 10px 0 5px;">মরিয়ম চক্ষু হাসপাতাল, উলিপুর</h3>
-            <p style="margin: 5px 0;">
-            <b>ঠিকানা:</b> উলিপুর, কুড়িগ্রাম <br>
-            <b>ফোন:</b> <a href="tel:01729179330" style="text-decoration: none; color: #12876c;">01729179330</a><br>
-            <b>ইমেইল:</b> <a href="mailto:marium.eye@gmail.com" style="text-decoration: none; color: #12876c;">marium.eye@gmail.com</a><br>
-            <b>ওয়েবসাইট:</b> <a href="https://quasemfoundation.com" style="text-decoration: none; color: #12876c;"> Click Here</a></p>
-            <button onclick="window.location.href='https://maps.app.goo.gl/x8yAfXBfmao9BHkJ7'"
-            style="margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        🔎 Find In Map
-    </button>
-    </div>
-    <br>
-    <br>
-    <div style="box-shadow: 0 4px 8px rgba(0, 0, 9, 0.5); border-radius: 5px; padding: 5px;">
-    <div class="clinic-profile" style="border-radius: 5%; width: 120px; height: 100px; overflow: hidden; margin: 0 auto;">
-    
-        <img src="https://kurigram.info/wp-content/uploads/classified-listing/2024/02/update-diagnostic-center-kurigram-400x320.png" alt="Hospital Photo" style="width: 100%; height: 100%;">
-    </div>
-    <h3 style="margin: 10px 0 5px;">আপডেট ডায়াগনস্টিক সেন্টার</h3>
-    <p style="margin: 5px 0;">
-    <b>ঠিকানা:</b> হাসপাতাল রোড, কুড়িগ্রাম<br>
-    <b>ফোন:</b> <a href="tel:01973555555" style="text-decoration: none; color: #12876c;">01973-555555</a></p>
-    <p style="margin: 5px 0;">ডায়াগনস্টিক সেন্টার</p>
-    <button onclick="window.location.href='https://maps.app.goo.gl/9A8y5QxfhjqfmyHt5'" 
-        style="margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        🔎 Find In Map
-    </button>
-    </div>
-    <br>
-    <br>
-    <div style="box-shadow: 0 4px 8px rgba(0, 0, 9, 0.5); border-radius: 5px; padding: 5px;">
-    <div class="clinic-profile" style="border-radius: 5%; width: 120px; height: 100px; overflow: hidden; margin: 0 auto;">
-        <img src="https://kurigram.info/wp-content/uploads/classified-listing/2024/02/Popular-General-P-G-Hospital.png" alt="Hospital Photo" style="width: 100%; height: 100%;">
-    </div>
-    <h3 style="margin: 10px 0 5px;">পপুলার জেনারেল (পি জি) হাসপাতাল</h3>
-    <p style="margin: 5px 0;"><b>ঠিকানা:</b> কুড়িগ্রাম সরকারি উচ্চ বিদ্যালয় এর পূর্ব পাশে, তালতলা সংলগ্ন, কুড়িগ্রাম<br>
-    <b>ফোন:</b> <a href="tel:01722619143" style="text-decoration: none; color: #12876c;">01722619143</a>
-    </p>
-    <p style="margin: 5px 0;">পিজি হাসপাতাল</p>
-    <button onclick="window.location.href='https://maps.app.goo.gl/9A8y5QxfhjqfmyHt5'" 
-        style="margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        🔎 Find In Map
-    </button>
-    </div>
-    <br>
-    <br>
-    <div style="box-shadow: 0 4px 8px rgba(0, 0, 9, 0.5); border-radius: 5px; padding: 5px;">
-    <div class="clinic-profile" style="border-radius: 5%; width: 120px; height: 100px; overflow: hidden; margin: 0 auto;">
-        <img src="https://kurigram.info/wp-content/uploads/classified-listing/2024/02/green-life-general-hospital.png" alt="Hospital Photo" style="width: 100%; height: 100%;">
-    </div>
-    <h3 style="margin: 10px 0 5px;">গ্রীন লাইফ জেনারেল হাসপাতাল কুড়িগ্রাম</h3>
-    <p style="margin: 5px 0;">লোকেশন: কুড়িগ্রাম সদর</p>
-    <p style="margin: 5px 0;">হাসপাতাল</p>
-    <button onclick="window.location.href='https://maps.app.goo.gl/9A8y5QxfhjqfmyHt5'" 
-        style="margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        🔎 Find In Map
-    </button>
-    </div>`,
-            "Bus Schedule": "Find local bus schedules at the nearest bus station.",
-            "Train Schedule": "Get train schedules at the local train station.",
-            "Tourist Spots": "Explore popular tourist spots in your area.",
-            "Bus Fare": "Check the current bus fares online or at the bus station.",
-            "Shopping": "Find nearby shopping malls and stores.",
-            "Fire Service": "Dial the emergency number for fire services.",
-            "Courier Service": "Find local courier services for deliveries.",
-            "Police Station": "Find the nearest police station for help.",
-            "Website": "Visit our website for more information.",
-            "Electricity Office": "Find the nearest electricity office for billing queries.",
-            "Diagnostic": "Get a diagnostic test at a local center.",
-            "Blood Bank": "Contact a blood bank for blood donations.",
-            "Hotel": "Find nearby hotels for accommodations.",
-            "Car Rental": "Rent a car from a local service provider.",
-            "Mistri": "Find a local mistri for repairs or construction work.",
-            "Emergency Service": "Dial the emergency number for any urgent services.",
-            "Job": "Explore job openings in your area.",
-            "Startup": "Get advice on starting your own business."
-        };
-
-        // Function to Show Details
-        function showDetails(title) {
-            document.getElementById('details-title').innerText = title;
-            document.getElementById('details-content').innerHTML = info[title];
-            document.getElementById('details').style.display = 'block';
-            document.getElementById('menu').style.display = 'none';
-        }
-
-        // Function to Close Details
-        function closeDetails() {
-            document.getElementById('details').style.display = 'none';
-            document.getElementById('menu').style.display = 'grid';
-        }
-
+        
         // Slider Functionality
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slider img');
