@@ -1,227 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Doctor List</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f4f8;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0px auto;
-      padding: 20px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-    .head{
-      max-width: 1200px;
-      margin: 10px auto;
-      padding:15px;
-      height: 120px;
-      border-radius: 10px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      background-color: #2ecc71;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    h1{
-      text-align: center;
-      font-size: 28px;
-      color: #2c3e50;
-    }
-    .doctor-card {
-      display: flex;
-      align-items: center;
-      margin: 20px 0;
-      padding: 20px;
-      background-color: #ffffff;
-      border-radius: 15px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .doctor-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
-    }
-    .doctor-card img {
-      border-radius: 50%;
-      width: 90px;
-      height: 90px;
-      object-fit: cover;
-      margin-right: 25px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .doctor-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      flex: 1;
-    }
-    .doctor-info h3 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 600;
-      color: #34495e;
-    }
-    .doctor-info p {
-      margin: 5px 0;
-      font-size: 14px;
-      color: #7f8c8d;
-    }
-    .appointment-btn {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      font-size: 16px;
-      font-weight: 500;
-      text-align: center;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .appointment-btn:hover {
-      background-color: #2980b9;
-    }
-    /* Loading Spinner */
-    .loading {
-      text-align: center;
-      font-size: 18px;
-      color: #3498db;
-    }
-    .spinner {
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #3498db;
-      border-radius: 50%;
-      width: 10px;
-      height: 10px;
-      animation: spin 1s linear infinite;
-      display: inline-block;
-      margin-left: 10px;
-    }
-    a{
-        text-decoration: none;
-    }
-    #logo {
-      padding-top: 10px;
-      width: 60px;  /* Adjust size if needed */
-      height: 60px;
-    }
-    /* Back Button */
-    .back-btn {
-      padding: 10px 20px;
-      background-color: black;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: none;
-      display: inline-block;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .back-btn:hover {
-      transform: translateY(-5px);
-      transform: translateX(-5px);
-      background-color: #2C2C2C;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Service Portal</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        /* Slider Styling */
+        .slider {
+            width: 90%;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider img {
+            height: 150px;
+            width: 100%;
+            display: none;
+            border-radius: 10px;
+        }
+
+        .slider img.active {
+            display: block;
+        }
+
+        /* Grid Styling */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Default: 4 columns */
+            gap: 10px;
+            padding: 15px;
+            width: 90%;
+            margin: auto;
+        }
+
+        .grid-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .grid-item img {
+            width: 50px;
+            height: 45px;
+            margin-bottom: auto;
+        }
+
+        .grid-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Details Section Styling */
+        #details {
+            display: none;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(10, 1fr); /* 3 columns for tablets */
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(4, 1fr); /* 2 columns for small screens */
+            }
+
+            .grid-item {
+                height: 60px;
+                width: 50px;
+                padding: 10px;
+            }
+
+            .grid-item img {
+                width: 50px;
+                height: 45px;
+            }
+        }
+        /* Details section */
+        .doctor-profile{
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
+    <!-- Slider Section -->
+    <div class="slider" id="slider">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJW-dLkjTlg3Zrn5dALEJyz3NJlyRV9CP9rg&usqp=CAU" class="active" alt="Slide 1">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLT6fW2faaOwowIZMRq54NEYuaNOQZCQgMLw&usqp=CAU" alt="Slide 2">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8e9OPgXbbt9F_KK9Z46LXWytRxo4igt29Qw&s" alt="Slide 3">
+    </div>
 
-<div class="container">
-  <!-- Back Button -->
-  <button class="back-btn" onclick="window.history.back()">< Back</button>
-  <div class="head">
-  <img id="logo" src="https://png.pngtree.com/png-vector/20240122/ourmid/pngtree-doctor-symbol-color-png-image_11455718.png" alt="Doctors">
-  <h1>Doctors List</h1>
-  </div>
-  <!-- Loading spinner initially displayed -->
-  <div class="loading" id="loading">
-    Loading Doctors List
-    <div class="spinner"></div>
-  </div>
-  <div id="doctor-list" style="display: none;"></div>
-</div>
+    <!-- Grid Section -->
+    <div class="grid" id="menu">
+        <div class="grid-item" onclick="window.location.href='https://ahmedsumon7891.github.io/online-service/doclist'">
+            <img src="https://png.pngtree.com/png-vector/20240122/ourmid/pngtree-doctor-symbol-color-png-image_11455718.png" alt="Doctor">
+            <span>ডাক্তার</span>
+        </div>
+        <div class="grid-item" onclick="window.location.href='https://ahmedsumon7891.github.io/online-service/hospital'">
+            <img src="https://png.pngtree.com/png-vector/20230209/ourmid/pngtree-hospital-logo-png-image_6591586.png" alt="Hospital">
+            <span>হাসপাতাল</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Bus Schedule')">
+            <img src="https://cdn-icons-png.flaticon.com/256/3448/3448339.png" alt="Bus">
+            <span>বাসের সময়সূচি</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Train Schedule')">
+            <img src="https://icons.veryicon.com/png/o/education-technology/smart-technology-icon/train-38.png" alt="Train">
+            <span>ট্রেনের সময়সূচি</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Tourist Spots')">
+            <img src="https://i.ibb.co.com/j3qGBf2/images-removebg-preview.png" alt="Tourist">
+            <span>দর্শনীয় স্থান</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Bus Fare')">
+            <img src="https://png.pngtree.com/png-clipart/20230408/original/pngtree-illustration-of-two-floor-house-for-rent-or-sale-with-red-png-image_9037149.png" alt="Rent">
+            <span>বাসা ভাড়া</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Shopping')">
+            <img src="https://www.nicepng.com/png/full/116-1169684_cart-png.png" alt="Shopping">
+            <span>শপিং</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Fire Service')">
+            <img src="https://i.ibb.co.com/xDyXtmt/bangladesh-fire-service-and-civil-defence-seeklogo.png" alt="Fire">
+            <span>ফায়ার সার্ভিস</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Courier Service')">
+            <img src=https://static.vecteezy.com/system/resources/previews/023/743/925/non_2x/scooter-with-delivery-man-flat-cartoon-character-fast-courier-restaurant-food-service-mail-delivery-service-a-postal-employee-the-determination-of-geolocation-using-electronic-device-free-png.png
+            <span>কুরিয়ার সার্ভিস</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Police Station')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Bangladesh_Police_Insignia_Patch.svg" alt="Police">
+            <span>থানা-পুলিশ</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Website')">
+            <img src="https://cdn-icons-png.flaticon.com/512/6471/6471842.png" alt="Website">
+            <span>ওয়েবসাইট</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Electricity Office')">
+            <img src="https://cdn-icons-png.flaticon.com/512/7506/7506305.png" alt="Electricity">
+            <span>বিদ্যুৎ অফিস</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Diagnostic')">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/049/503/348/small_2x/mri-machine-illustration-png.png" alt="Diagnostic">
+            <span>ডায়াগনস্টিক</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Blood Bank')">
+            <img src="https://cdn3d.iconscout.com/3d/premium/thumb/positive-blood-group-3d-icon-download-in-png-blend-fbx-gltf-file-formats--drop-drops-medicine-pack-healthcare-medical-icons-4897215.png?f=webp" alt="Blood">
+            <span>রক্ত</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Hotel')">
+            <img src="https://www.iconpacks.net/icons/2/free-hotel-icon-1808-thumb.png" alt="Hotel">
+            <span>হোটেল</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Car Rental')">
+            <img src="https://cdn-icons-png.flaticon.com/512/4965/4965302.png" alt="Car">
+            <span>গাড়ি ভাড়া</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Mistri')">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/024/320/113/small_2x/mechanic-man-logo-handyman-for-service-repairman-or-maintenance-mascot-concept-cartoon-character-design-isolated-illustration-png.png" alt="Mistri">
+            <span>মিস্ত্রি</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Emergency Service')">
+            <img src="https://png.pngtree.com/png-clipart/20230328/original/pngtree-24-hour-emergency-service-label-design-png-image_9006215.png" alt="Emergency">
+            <span>জরুরি সেবা</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Job')">
+            <img src="https://www.pngplay.com/wp-content/uploads/9/Job-Free-PNG.png" alt="Job">
+            <span>চাকরি</span>
+        </div>
+        <div class="grid-item" onclick="showDetails('Startup')">
+            <img src="https://uddoktapoint.com/wp-content/uploads/2023/05/logo.png" alt="Startup">
+            <span>উদ্যোক্তা</span>
+        </div>
+        <!-- Add more grid items as needed -->
+    </div>
 
-<script>
-  // Handle browser back button
-  window.addEventListener('popstate', function() {
-    window.history.back();
-  });
+    <script>
+        
+        // Slider Functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider img');
 
-  // Fetch data from API
-  fetch('https://script.google.com/macros/s/AKfycbwuISe4t8RRyNsC03RflgECxQVQ5y7AXEVDd-isZBEQuvrVxXSr3ndsQ6KyJcMQCyREnQ/exec')
-    .then(response => response.json())
-    .then(data => {
-      const doctorList = data.data;
-      const doctorListContainer = document.getElementById('doctor-list');
-      const loadingElement = document.getElementById('loading');
-      
-      // Hide loading and show doctor list
-      loadingElement.style.display = 'none';
-      doctorListContainer.style.display = 'block';
-      
-      // Loop through each doctor and display their information
-      doctorList.forEach(doctor => {
-        const doctorCard = document.createElement('div');
-        doctorCard.classList.add('doctor-card');
-        
-        // Create doctor image
-        const doctorImage = document.createElement('img');
-        doctorImage.src = doctor.photo.startsWith('data:image') ? doctor.photo : doctor.photo;
-        doctorImage.alt = doctor.name;
-        
-        // Create doctor info section
-        const doctorInfo = document.createElement('div');
-        doctorInfo.classList.add('doctor-info');
-        
-        const doctorName = document.createElement('h3');
-        doctorName.textContent = doctor.name;
-        
-        const doctorSpecialist = document.createElement('p');
-        doctorSpecialist.textContent = `Specialty: ${doctor.specialist}`;
-        
-        const doctorWorkplace = document.createElement('p');
-        doctorWorkplace.textContent = `Workplace: ${doctor.workplace}`;
-        
-        const appointmentBtn = document.createElement('a');
-        appointmentBtn.classList.add('appointment-btn');
-        appointmentBtn.href = doctor.appointment;
-        appointmentBtn.target = '_blank';
-        appointmentBtn.textContent = 'Make Appointment';
-        
-        // Append elements
-        doctorInfo.appendChild(doctorName);
-        doctorInfo.appendChild(doctorSpecialist);
-        doctorInfo.appendChild(doctorWorkplace);
-        doctorInfo.appendChild(appointmentBtn);
-        
-        doctorCard.appendChild(doctorImage);
-        doctorCard.appendChild(doctorInfo);
-        
-        doctorListContainer.appendChild(doctorCard);
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching doctor data:', error);
-    });
-</script>
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
 
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 3000);
+    </script>
 </body>
-  </html>
+</html>
