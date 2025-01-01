@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Bus List</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .head{
+      max-width: 1200px;
+      margin: 10px auto;
+      padding:15px;
+      height: 120px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      background-color: #2ecc71;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      color: #2c3e50;
+    }
+    .bus-card {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .bus-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    }
+    .bus-card img {
+      border-radius: 10px;
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      margin-right: 25px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .bus-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+    .bus-info h3 {
+      margin-bottom: 5px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #34495e;
+    }
+    .bus-info p {
+      margin: 3px 0;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+    .loading {
+      text-align: center;
+      font-size: 18px;
+      color: #3498db;
+    }
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #3498db;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-left: 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    a{
+      text-decoration: none;
+    }
+    /* Back Button */
+    .back-btn {
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: none;
+      display: inline-block;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #logo {
+      padding-top: 10px;
+      width: 60px;  /* Adjust size if needed */
+      height: 60px;
+    }
+    .back-btn:hover {
+      transform: translateY(-5px);
+      transform: translateX(-5px);
+      background-color: #2C2C2C;
+    }
+    .call-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .call-btn:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Back Button -->
+  <button class="back-btn" onclick="window.history.back()">< Back</button>
+  <div class="head">
+  <img id="logo" src="https://cdn-icons-png.flaticon.com/256/3448/3448339.png" alt="Bus Logo">
+  <h1>List Of Buses</h1>     
+  </div>
+
+  <!-- Loading spinner initially displayed -->
+  <div class="loading" id="loading"><br />
+      <div class="spinner"></div><br/>
+    Loading Bus List
+  </div>
+  <div id="bus-list" style="display: none;"></div>
+</div>
+
+<script>
+  // Handle browser back button
+  window.addEventListener('popstate', function() {
+    window.history.back();
+  });
+  // Fetch data from API
+  fetch('https://script.google.com/macros/s/AKfycbw8-Fj-mOyDL9gquD8bVzM2CHcxEj_XW8nHTPC64AvegrsnURVhXKoCDlAdxbGHCQQ/exec')
+    .then(response => response.json())
+    .then(data => {
+      const busList = data.data;
+      const busListContainer = document.getElementById('bus-list');
+      const loadingElement = document.getElementById('loading');
+      
+      // Hide loading and show bus list
+      loadingElement.style.display = 'none';
+      busListContainer.style.display = 'block';
+      
+      // Loop through each bus and display their information
+      busList.forEach(bus => {
+        const busCard = document.createElement('div');
+        busCard.classList.add('bus-card');
+        
+        // Create bus image
+        const busImage = document.createElement('img');
+        busImage.src = bus.photo;
+        busImage.alt = bus.name;
+        
+        // Create bus info section
+        const busInfo = document.createElement('div');
+        busInfo.classList.add('bus-info');
+        
+        const busName = document.createElement('h3');
+        busName.textContent = bus.name;
+        
+        const busRoute = document.createElement('p');
+        busRoute.innerHTML = `<b>Route:</b> ${bus.from} to ${bus.to}`;
+        
+        const busTime = document.createElement('p');
+        busTime.innerHTML = `<b>Time:</b> ${bus.time}`;
+        
+        const busFare = document.createElement('p');
+        busFare.innerHTML = `<b>Fare:</b> ${bus.fare}`;
+        
+        const phoneLink = document.createElement('a');
+        phoneLink.classList.add('call-btn');
+        phoneLink.href = `tel:${bus.phone}`;
+        phoneLink.textContent = `📞 Call Now`;
+        
+        // Append elements
+        busInfo.appendChild(busName);
+        busInfo.appendChild(busRoute);
+        busInfo.appendChild(busTime);
+        busInfo.appendChild(busFare);
+        busInfo.appendChild(phoneLink);
+        
+        busCard.appendChild(busImage);
+        busCard.appendChild(busInfo);
+        
+        busListContainer.appendChild(busCard);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching bus data:', error);
+    });
+</script>
+
+</body>
+</html>
