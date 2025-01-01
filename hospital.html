@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Hospital List</title>
   <style>
     body {
@@ -154,14 +154,19 @@
   </div>
 
   <!-- Loading spinner initially displayed -->
-  <div class="loading" id="loading">
-    Loading Hospitals List
-    <div class="spinner"></div>
+  <div class="loading" id="loading"><br />
+      <div class="spinner"></div><br/>
+    Loading Doctors List
   </div>
   <div id="hospital-list" style="display: none;"></div>
 </div>
 
 <script>
+  // Handle browser back button
+  window.addEventListener('popstate', function() {
+    window.history.back();
+      
+  });
   // Fetch data from API
     fetch('https://script.google.com/macros/s/AKfycbwvvF9aJ1Pqx6TA-qpFTvIQPUh1rXsTmGMZ-jXEGj5sQMU2jdkC8RblpcLshdDX1YE/exec')
     .then(response => response.json())
@@ -192,7 +197,7 @@
       hospitalName.textContent = hospital.name;
       
       const hospitalLocation = document.createElement('p');
-      hospitalLocation.textContent = `Location: ${hospital.location}`;
+      hospitalLocation.innerHTML = `<b>Location:</b> ${hospital.location}`;
       
       // Create phone and email with clickable links
       const hospitalPhone = document.createElement('p');
@@ -201,7 +206,7 @@
       phoneLink.style.textDecoration = 'none';
       phoneLink.style.color = '#3498db';
       phoneLink.textContent = hospital.phone;
-      hospitalPhone.textContent = 'Phone: ';
+      hospitalPhone.innerHTML = '<b>Phone:</b> ';
       hospitalPhone.appendChild(phoneLink);
 
       const hospitalEmail = document.createElement('p');
@@ -210,7 +215,7 @@
       emailLink.style.textDecoration = 'none';
       emailLink.style.color = '#3498db';
       emailLink.textContent = hospital.email;
-      hospitalEmail.textContent = 'Email: ';
+      hospitalEmail.innerHTML = '<b>Email:</b> ';
       hospitalEmail.appendChild(emailLink);
 
       const mapBtn = document.createElement('a');
