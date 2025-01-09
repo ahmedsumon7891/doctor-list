@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Train Booking</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f4f8;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+      .big-container {
+        max-width: 1200px;
+        margin: 0px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .head {
+        max-width: 1200px;
+        margin: 10px auto;
+        padding: 15px;
+        height: 120px;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        background-color: #2ecc71;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+      .back-btn {
+        padding: 10px 20px;
+        background-color: black;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-block;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      #logo {
+        padding-top: 10px;
+        width: 60px;
+        height: 60px;
+      }
+      .back-btn:hover {
+        transform: translateX(-5px);
+        background-color: #2c2c2c;
+      }
+      h1 {
+        text-align: center;
+        font-size: 28px;
+        color: #2c3e50;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .container:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+      }
+      h3 {
+        text-align: center;
+        font-size: 20px;
+        color: #2ecc71;
+      }
+      .form-group {
+        width: 100%;
+        margin-bottom: 20px;
+        background: transparent;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      label {
+        display: ;
+        font-weight: 400;
+        color: #5c5c5c;
+        font-size: 14;
+        margin-left: 10px;
+        background: white;
+        border: 4px solid white;
+      }
+      select,
+      input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #2ecc71;
+        border-radius: 12px;
+        font-size: 16px;
+        background: transparent;
+        color: #2ecc71;
+        display: block;
+        margin-top: -7px;
+      }
+      input[type="date"]:focus {
+        outline: none;
+        border-color: #2ecc71;
+      }
+      select:focus,
+      input[type="date"]:focus {
+        outline: none;
+        border-color: #2ecc71;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        border: 1px solid #2ecc71;
+      }
+      select:focus,
+      input[type="date"]:focus {
+        box-shadow: none;
+      }
+      .form-group:hover {
+        transform: translateY(-10px);
+      }
+      .search-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #2ecc71;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 45%;
+      }
+      .search-btn:hover {
+        background-color: #2ecc71;
+      }
+      @media (min-width: 768px) {
+        .search-btn {
+          width: 30%;
+        }
+        .form-group {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="big-container">
+      <button class="back-btn" onclick="window.history.back()">< Back</button>
+      <div class="head">
+        <img
+          id="logo"
+          src="https://icons.veryicon.com/png/o/education-technology/smart-technology-icon/train-38.png"
+          alt="Trains Logo"
+        />
+        <h1>Train Booking</h1>
+      </div>
+      <div class="container">
+        <h3>Find Train Here</h3>
+        <div class="form-group">
+          <label for="from-city">From</label>
+          <select id="from-city"></select>
+        </div>
+        <div class="form-group">
+          <label for="to-city">To</label>
+          <select id="to-city"></select>
+        </div>
+        <div class="form-group">
+          <label for="journey-date">Date of Journey</label>
+          <input type="date" id="journey-date" />
+        </div>
+        <button class="search-btn" onclick="redirectToRailway()">Search Trains</button>
+      </div>
+    </div>
+    <script>
+      const cities = [
+        "Dhaka",
+        "Chattogram",
+        "Rajshahi",
+        "Khulna",
+        "Sylhet",
+        "Barishal",
+        "Rangpur",
+        "Mymensingh",
+        "Kurigram",
+        "Cox's Bazar",
+      ];
+
+      function populateDropdowns() {
+        const fromSelect = document.getElementById("from-city");
+        const toSelect = document.getElementById("to-city");
+        cities.forEach((city) => {
+          fromSelect.innerHTML += `<option value="${city}">${city}</option>`;
+          toSelect.innerHTML += `<option value="${city}">${city}</option>`;
+        });
+      }
+
+      function formatDate(date) {
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        const d = new Date(date);
+        return `${String(d.getDate()).padStart(2, "0")}-${
+          months[d.getMonth()]
+        }-${d.getFullYear()}`;
+      }
+
+      function setupCalendar() {
+        const dateInput = document.getElementById("journey-date");
+
+        // Get today's date in Bangladesh Time (BDT)
+        const today = new Date();
+        const bdTimeOffset = 6 * 60; // Bangladesh is UTC +6
+        const bdToday = new Date(today.toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
+
+        // Set minDate to today (Bangladesh time)
+        const minDate = new Date(bdToday); // Start from today
+        const maxDate = new Date(minDate);
+        maxDate.setDate(minDate.getDate() + 10); // Add 10 days to today
+        
+        // Format dates as YYYY-MM-DD for the input field
+        const minDateString = minDate.toISOString().split("T")[0];
+        const maxDateString = maxDate.toISOString().split("T")[0];
+
+        dateInput.min = minDateString;
+        dateInput.max = maxDateString;
+        
+        // Set the default value to today's date (Bangladesh time)
+        const todayString = bdToday.toISOString().split("T")[0];
+        dateInput.value = todayString; // Ensure today's date is selected
+      }
+
+      function redirectToRailway() {
+        const fromCity = document.getElementById("from-city").value;
+        const toCity = document.getElementById("to-city").value;
+        const journeyDate = document.getElementById("journey-date").value;
+
+        if (!fromCity || !toCity || !journeyDate) {
+          alert("⚠️ ভুল!! দয়া করে সব গুলো ঘর পূরণ করুন!");
+          return;
+        }
+        if (fromCity === toCity) {
+          alert("⚠️ ভুল !! আপনার অবস্থান ও গন্তব্য একই হতে পারে না! দয়া করে গন্তব্য পরিবর্তন করুন।");
+          return;
+        }
+
+        const formattedDate = formatDate(journeyDate);
+        const url = `https://eticket.railway.gov.bd/booking/train/search?fromcity=${fromCity}&tocity=${toCity}&doj=${formattedDate}&class=S_CHAIR`;
+        window.location.href = url;
+      }
+
+      populateDropdowns();
+      setupCalendar();
+    </script>
+  </body>
+</html>
